@@ -1,0 +1,21 @@
+#!/bin/sh
+
+
+validation="^(feature|wip|refactor|fix):.{1,50}$"
+commit_msg=$(cat "$1")
+
+
+if ! echo "$commit_msg" | grep -iqE "$validation"; then
+  echo -e "\033[0;31m Commit message format is invalid. Please use '<type>:<description> format'  (max 50 characters). \033[0m"
+  echo -e "\033[0;31m Please use one of the following commit types: \033[0m"
+  echo "  - feature (new feature)"
+  echo "  - fix (bug fix)"
+  echo "  - refactor (refactoring code)"
+  echo "  - wip (work in progress – commits to be pushed later)"
+
+
+  exit 1
+fi
+
+
+exit 0
